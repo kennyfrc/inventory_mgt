@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  def_retail_price_in_cents: 1
+  def_wholesale_price_in_cents: 1
+  description: MyText
+  initial_cost_in_cents: 1
+  initial_stock_level: 1
+  name: MyString
+  sku: MyString
+  product_category_id: 
+
+two:
+  def_retail_price_in_cents: 1
+  def_wholesale_price_in_cents: 1
+  description: MyText
+  initial_cost_in_cents: 1
+  initial_stock_level: 1
+  name: MyString
+  sku: MyString
+  product_category_id: 
