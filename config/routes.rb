@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root to: 'dashboard#show'
 
+  get 'dashboard/investigate_inventory' => 'dashboard#investigate_inventory'
+
   resources :purchase_line_items
   resources :sales_line_items
   resources :purchase_orders

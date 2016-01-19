@@ -1,0 +1,50 @@
+<h1 align="center" class="jumbotron", style="padding: 5px; background-color: #F0F0F0; margin: 0px"> Investigate By-SKU Inventory  </h1>
+<div class="container-fluid" style="background-color: #F8F8F8 ">
+
+<form class="navbar-form" role="search">
+<%= form_tag dashboard_investigate_inventory_path, method: :get do %>
+  <p>
+    <%= text_field_tag :query, params[:query], class: "form-control" %>
+    <%= submit_tag "Search", name: nil, class: "btn btn-default" %> 
+  </p>
+<% end %>
+</form>
+<div class="col-md-5">
+<br>
+<br>
+<br>
+<b><%= "Value Metrics" %><br></b>
+<%= "Total Profit for #{@product_descriptions.pluck(:name)[0]}s: $#{@cumu_profit_data.values.last.round(2)}" %><br>
+<%= "Total Revenue for #{@product_descriptions.pluck(:name)[0]}s: $#{@cumu_rev_data.values.last.round(2)}" %><br>
+<%= "Total Expenses for #{@product_descriptions.pluck(:name)[0]}s: $#{@cumu_cost_data.values.last.round(2)}" %><br>
+<br>
+<b><%= "Volume Metrics" %><br></b>
+<%= "Total Units Sold #{@product_descriptions.pluck(:name)[0]}s: #{@cumu_sold.last.round(0)} Units" %><br>
+<%= "Total Units Purchased for #{@product_descriptions.pluck(:name)[0]}s: #{@cumu_purch.last.round(0)} Units" %><br>
+<br>
+<b><%= "Inventory Metrics"%><br></b>
+<%= "Current Stock Level for #{@product_descriptions.pluck(:name)[0]}s: #{@stock_level.last} Units" %><br>
+<%= "Days on Hand before Stock Depletion for #{@product_descriptions.pluck(:name)[0]}s: #{@days_on_hand.round(0)} Day(s)" %><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</div>
+
+
+<div class="col-md-7">
+  <h3>Profit Over Time for <%="#{@product_descriptions.pluck(:name)[0]}s"%></h3>
+        <%= line_chart [
+          {name: "Profit", data: @cumu_profit_data },
+          {name: "Revenue", data: @cumu_rev_data},
+          {name: "Cost", data: @cumu_cost_data }
+        ] %>
+  <div align="right">
+  <a href= "/" class="btn btn-info btn-sm">Back to Dashboard</a>
+  </div>
+</div>
+<br>
+<br>
+</div>

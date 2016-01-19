@@ -1,22 +1,31 @@
-  <div class="col-xs-6">
-    <h3>Profit Over Time</h3>
-    <%= line_chart [
-      {name: "Profit", data: @cumu_profit_data },
-      {name: "Revenue", data: @cumu_rev_data},
-      {name: "Cost", data: @cumu_cost_data }
-    ] %>
-  </div>
-
-  <div class="col-xs-6">
-    <h3>Stock Level Over Time</h3>
-    <%= line_chart [
-      {name: "Stock Level", data: @stock_level_data } 
-    ] %>
-  </div>
-
-  <div class="col-xs-6">
-    <h3>Days on Hand (Est. Number of Days before Stock Depletes)</h3>
-      <%= column_chart [
-        ["Days on Hand", @days_on_hand.round(0)]
+<h1 align="center" class="jumbotron", style="padding: 5px; background-color: #F0F0F0; margin: 0px"> Dashboard </h1>
+  <div class="container-fluid" style="background-color: #F8F8F8 ">
+    <div class="col-xs-6">
+      <h3>Profit Over Time</h3>
+      <%= line_chart [
+        {name: "Profit", data: @cumu_profit_data },
+        {name: "Revenue", data: @cumu_rev_data},
+        {name: "Cost", data: @cumu_cost_data }
       ] %>
-  </div>
+      <div align="right">
+        <div class="col-md-6">
+          <p align="left"> <%= "All-Time Revenue: $#{@cumu_rev_data.values.last.round(2)}" %> <br><%= "All-Time Profit: $#{@cumu_profit_data.values.last.round(2)}" %> </p>
+        </div>
+        <a href= "#" class="btn btn-success btn-sm">Bill Sales</a>
+        <a href= "#" class="btn btn-info btn-sm">Build Stocks</a>
+      </div>
+    </div>
+
+    <div class="col-xs-6">
+      <h3>Stock Level Over Time</h3>
+      <%= column_chart [
+        {name: "Stock Level", data: @stock_level_data } 
+      ] %>
+      <div align="right">
+        <div class="col-md-6">
+          <p align ="left"><%= "Average Stock Level per SKU: #{(@latest_stock_level / 2).round(0)} Units" %></p>
+        </div>
+        <a href= "dashboard/investigate_inventory" class="btn btn-info btn-sm">Study By-SKU Inventory</a>
+      </div>
+    </div>
+  </div>y

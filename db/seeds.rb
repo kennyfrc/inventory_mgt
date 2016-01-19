@@ -57,9 +57,9 @@ purchases = PurchaseLineItem.all
 
 # sold bananas and apples to chrome store (SO001)
 SalesLineItem.create sales_order: sales_orders.find_by(so_number: "SO001"), product_description: product_descriptions.find_by(name: "Banana"), price_in_cents: 6999, units_sold: 10, created_at: sales_orders.where(so_number: "SO001").pluck(:created_at)[0]
-SalesLineItem.create sales_order: sales_orders.find_by(so_number: "SO001"), product_description: product_descriptions.find_by(name: "Apple"), price_in_cents: 3999, units_sold: 10, created_at: sales_orders.where(so_number: "SO001").pluck(:created_at)[0]
+SalesLineItem.create sales_order: sales_orders.find_by(so_number: "SO001"), product_description: product_descriptions.find_by(name: "Apple"), price_in_cents: 3999, units_sold: 10, created_at: sales_orders.where(so_number: "SO001").pluck(:created_at)[0] # it starts with an array.. easy way to retrieve the element, which is a ActiveSupport::DateTimeZone type
 
-# sold bananas and apples to firefox store (SO001)
+# sold bananas and apples to firefox store (SO002)
 SalesLineItem.create sales_order: sales_orders.find_by(so_number: "SO002"), product_description: product_descriptions.find_by(name: "Banana"), price_in_cents: 6999, units_sold: 25, created_at: sales_orders.where(so_number: "SO002").pluck(:created_at)[0]
 SalesLineItem.create sales_order: sales_orders.find_by(so_number: "SO002"), product_description: product_descriptions.find_by(name: "Apple"), price_in_cents: 3999, units_sold: 5, created_at: sales_orders.where(so_number: "SO002").pluck(:created_at)[0]
 
