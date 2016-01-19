@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root to: 'dashboard#show'
+
   resources :purchase_line_items
   resources :sales_line_items
   resources :purchase_orders

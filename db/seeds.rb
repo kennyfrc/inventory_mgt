@@ -43,29 +43,29 @@ SalesOrder.create so_number: "SO003", created_at: DateTime.now, customer: custom
 sales_orders = SalesOrder.all
 
 # purchased bananas and apples from atom company (PO001)
-PurchaseLineItem.create purchase_order: purchase_orders.find_by(po_number: "PO001"), product_description: product_descriptions.find_by(name: "Banana"), price_in_cents: 4999, units_purchased: 10
-PurchaseLineItem.create purchase_order: purchase_orders.find_by(po_number: "PO001"), product_description: product_descriptions.find_by(name: "Apple"), price_in_cents: 2999, units_purchased: 10
+PurchaseLineItem.create purchase_order: purchase_orders.find_by(po_number: "PO001"), product_description: product_descriptions.find_by(name: "Banana"), price_in_cents: 4999, units_purchased: 10, created_at: purchase_orders.where(po_number: "PO001").pluck(:created_at)[0]
+PurchaseLineItem.create purchase_order: purchase_orders.find_by(po_number: "PO001"), product_description: product_descriptions.find_by(name: "Apple"), price_in_cents: 2999, units_purchased: 10, created_at: purchase_orders.where(po_number: "PO001").pluck(:created_at)[0]
 
 # purchased bananas and apples from sublime company (PO002)
-PurchaseLineItem.create purchase_order: purchase_orders.find_by(po_number: "PO002"), product_description: product_descriptions.find_by(name: "Banana"), price_in_cents: 4999, units_purchased: 35
-PurchaseLineItem.create purchase_order: purchase_orders.find_by(po_number: "PO002"), product_description: product_descriptions.find_by(name: "Apple"), price_in_cents: 2999, units_purchased: 25
+PurchaseLineItem.create purchase_order: purchase_orders.find_by(po_number: "PO002"), product_description: product_descriptions.find_by(name: "Banana"), price_in_cents: 4999, units_purchased: 35, created_at: purchase_orders.where(po_number: "PO002").pluck(:created_at)[0]
+PurchaseLineItem.create purchase_order: purchase_orders.find_by(po_number: "PO002"), product_description: product_descriptions.find_by(name: "Apple"), price_in_cents: 2999, units_purchased: 25, created_at: purchase_orders.where(po_number: "PO002").pluck(:created_at)[0]
 
 # purchased bananas and apples from emacs company (PO003)
-PurchaseLineItem.create purchase_order: purchase_orders.find_by(po_number: "PO003"), product_description: product_descriptions.find_by(name: "Banana"), price_in_cents: 4999, units_purchased: 25
-PurchaseLineItem.create purchase_order: purchase_orders.find_by(po_number: "PO003"), product_description: product_descriptions.find_by(name: "Apple"), price_in_cents: 2999, units_purchased: 5
+PurchaseLineItem.create purchase_order: purchase_orders.find_by(po_number: "PO003"), product_description: product_descriptions.find_by(name: "Banana"), price_in_cents: 4999, units_purchased: 25, created_at: purchase_orders.where(po_number: "PO003").pluck(:created_at)[0]
+PurchaseLineItem.create purchase_order: purchase_orders.find_by(po_number: "PO003"), product_description: product_descriptions.find_by(name: "Apple"), price_in_cents: 2999, units_purchased: 5, created_at: purchase_orders.where(po_number: "PO003").pluck(:created_at)[0]
 purchases = PurchaseLineItem.all
 
 # sold bananas and apples to chrome store (SO001)
-SalesLineItem.create sales_order: sales_orders.find_by(so_number: "SO001"), product_description: product_descriptions.find_by(name: "Banana"), price_in_cents: 6999, units_sold: 10
-SalesLineItem.create sales_order: sales_orders.find_by(so_number: "SO001"), product_description: product_descriptions.find_by(name: "Apple"), price_in_cents: 3999, units_sold: 10
+SalesLineItem.create sales_order: sales_orders.find_by(so_number: "SO001"), product_description: product_descriptions.find_by(name: "Banana"), price_in_cents: 6999, units_sold: 10, created_at: sales_orders.where(so_number: "SO001").pluck(:created_at)[0]
+SalesLineItem.create sales_order: sales_orders.find_by(so_number: "SO001"), product_description: product_descriptions.find_by(name: "Apple"), price_in_cents: 3999, units_sold: 10, created_at: sales_orders.where(so_number: "SO001").pluck(:created_at)[0]
 
 # sold bananas and apples to firefox store (SO001)
-SalesLineItem.create sales_order: sales_orders.find_by(so_number: "SO002"), product_description: product_descriptions.find_by(name: "Banana"), price_in_cents: 6999, units_sold: 25
-SalesLineItem.create sales_order: sales_orders.find_by(so_number: "SO002"), product_description: product_descriptions.find_by(name: "Apple"), price_in_cents: 3999, units_sold: 5
+SalesLineItem.create sales_order: sales_orders.find_by(so_number: "SO002"), product_description: product_descriptions.find_by(name: "Banana"), price_in_cents: 6999, units_sold: 25, created_at: sales_orders.where(so_number: "SO002").pluck(:created_at)[0]
+SalesLineItem.create sales_order: sales_orders.find_by(so_number: "SO002"), product_description: product_descriptions.find_by(name: "Apple"), price_in_cents: 3999, units_sold: 5, created_at: sales_orders.where(so_number: "SO002").pluck(:created_at)[0]
 
 # sold bananas and apples to opera store (SO003)
-SalesLineItem.create sales_order: sales_orders.find_by(so_number: "SO003"), product_description: product_descriptions.find_by(name: "Banana"), price_in_cents: 6999, units_sold: 20
-SalesLineItem.create sales_order: sales_orders.find_by(so_number: "SO003"), product_description: product_descriptions.find_by(name: "Apple"), price_in_cents: 3999, units_sold: 1
+SalesLineItem.create sales_order: sales_orders.find_by(so_number: "SO003"), product_description: product_descriptions.find_by(name: "Banana"), price_in_cents: 6999, units_sold: 20, created_at: sales_orders.where(so_number: "SO003").pluck(:created_at)[0]
+SalesLineItem.create sales_order: sales_orders.find_by(so_number: "SO003"), product_description: product_descriptions.find_by(name: "Apple"), price_in_cents: 3999, units_sold: 1, created_at: sales_orders.where(so_number: "SO003").pluck(:created_at)[0]
 sales = SalesLineItem.all
 
 # patterns
