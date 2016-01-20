@@ -6,22 +6,37 @@ class ProductDescriptionsController < ApplicationController
 
     base
     stock_level
+    avg_sales
   end
 
   private
 
     def base
       # this is the base for the cumulative data
-      @sum_sold, @sum_purch, @sum_rev, @sum_cost, @sum_profit = 0, 0, 0, 0, 0
+      @sum_sold, @sum_purch = 0, 0
     end
 
-   def stock_level
-    # cumulative items sold and purchased
-    @dates2 = PurchaseLineItem.where(product_description: @product_descriptions).group_by_day(:created_at, format: "%B %d, %Y").count.map {|key, value| key}
-    @cumu_sold = SalesLineItem.where(product_description: @product_descriptions).group_by_day(:created_at, format: "%B %d, %Y").sum(:units_sold).map { |x,y| { x => (@sum_sold += y) } }.reduce({}, :merge).values
-    @cumu_purch = PurchaseLineItem.where(product_description: @product_descriptions).group_by_day(:created_at, format: "%B %d, %Y").sum(:units_purchased).map { |x,y| { x => (@sum_purch += y) } }.reduce({}, :merge).values
-    @stock_level = @cumu_purch.zip(@cumu_sold).map {|purch, sold| purch - sold }
-    @stock_level_data = Hash[*@dates2.zip(@stock_level).flatten]
+  def stock_level
+    arr = []
+    @product_descriptions.each do |product|
+      @sum_sold = 0
+      @sum_purch = 0
+      @cumu_sold = SalesLineItem.where(product_description: @product_descriptions.where(name: product.name)).group_by_day(:created_at, format: "%B %d, %Y").sum(:units_sold).map { |x,y| { x => (@sum_sold += y) } }.reduce({}, :merge).values
+      @cumu_purch = PurchaseLineItem.where(product_description: @product_descriptions.where(name: product.name)).group_by_day(:created_at, format: "%B %d, %Y").sum(:units_purchased).map { |x,y| { x => (@sum_purch += y) } }.reduce({}, :merge).values
+      @stock_level = @cumu_purch.zip(@cumu_sold).map {|purch, sold| purch - sold }
+      arr << product.name << @stock_level.last
+    end
+    @stock_level_index = Hash[*arr]
   end
 
+  def avg_sales
+    arr = []
+    @product_descriptions.each do |product|
+      @avg_sales = SalesLineItem.where(product_description: @product_descriptions.where(name: product.name)).where(:created_at => (DateTime.now - 5.days)..(DateTime.now)).average(:units_sold).to_f
+      arr << product.name << @avg_sales
+    end
+    @avg_sales = Hash[*arr]
+  end
 end
+
+# SalesLineItem.where(product_description: @product_descriptions.where(name: "Banana")).group_by_day(:created_at, format: "%B %d, %Y").sum(:units_sold).keys_last
