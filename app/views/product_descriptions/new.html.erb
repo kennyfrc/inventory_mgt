@@ -1,0 +1,23 @@
+<%= form_for @product_descriptions do |f| %>
+<!-- add error handling here, which all all organized under ONE div class which is "alert alert-danger"-->
+<!-- add blocks in lieu of the divs here... where it calls class 'form-group has-error' if there's an error and 'form-group' if there's no error.. use the helper method here where it takes a list of errors and a block-->
+   <%= f.label :default_retail_price %>
+   <%= f.text_field :def_retail_price , class: 'form-control', placeholder: 'anything cool?' %>
+
+   <%= f.label :default_wholesale_price %>
+   <%= f.text_field :def_wholesale_price , class: 'form-control', placeholder: 'anything cool?' %>
+
+   <%= f.label :product_name %>
+   <%= f.text_field :name, class: 'form-control', placeholder: 'add some details here' %>
+
+   <%= f.label :description %>
+   <%= f.text_area :text, class: 'form-control', placeholder: 'add some details here' %>
+
+   <%= f.label :sku_number %>
+   <%= f.text_field :sku, class: 'form-control', placeholder: 'add some details here' %>
+
+   <%= f.label :initial_cost %>
+   <%= f.text_field :init_cost , class: 'form-control', placeholder: 'anything cool?' %>
+
+   <%= f.submit "Save", class: 'btn btn-success btn-md' %>
+<% end %>

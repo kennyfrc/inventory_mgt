@@ -9,6 +9,12 @@ class DashboardController < ApplicationController
     profit_graph
     stock_level
     days_on_hand
+
+    if @days_on_hand < 7
+      flash[:alert] = "Replenish your stock ASAP. You have on average less than 7 days worth of stock left. Check 'Study By-SKU Inventory' for more [In Stock Level Over Time Graph]."
+    elsif @days_on_hand < 3
+      flash[:error] = "Replenish your stock ASAP. You have less than 3 days worth of stock left."
+    end
   end
 
   def investigate_inventory
@@ -21,6 +27,12 @@ class DashboardController < ApplicationController
     profit_graph
     stock_level
     days_on_hand
+
+    if @days_on_hand < 7 && @days_on_hand > 2
+      flash[:alert] = "Replenish your stock ASAP. You have on average less than 7 days worth of stock left. Check 'Study By-SKU Inventory' for more [In Stock Level Over Time Graph]."
+    elsif @days_on_hand < 3
+      flash[:error] = "Replenish your stock ASAP. You have less than 3 days worth of stock left."
+    end
   end
 
   private
@@ -55,6 +67,7 @@ class DashboardController < ApplicationController
 
   def stock_level
     # cumulative items sold and purchased
+    @dates2 = PurchaseLineItem.where(product_description: @product_descriptions).group_by_day(:created_at, format: "%B %d, %Y").count.map {|key, value| key}
     @cumu_sold = SalesLineItem.where(product_description: @product_descriptions).group_by_day(:created_at, format: "%B %d, %Y").sum(:units_sold).map { |x,y| { x => (@sum_sold += y) } }.reduce({}, :merge).values
     @cumu_purch = PurchaseLineItem.where(product_description: @product_descriptions).group_by_day(:created_at, format: "%B %d, %Y").sum(:units_purchased).map { |x,y| { x => (@sum_purch += y) } }.reduce({}, :merge).values
     @stock_level = @cumu_purch.zip(@cumu_sold).map {|purch, sold| purch - sold }
