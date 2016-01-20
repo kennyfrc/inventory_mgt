@@ -9,12 +9,37 @@ class ProductDescriptionsController < ApplicationController
     avg_sales
   end
 
+  def new
+    @product_description = ProductDescription.new
+    @product_category = ProductCategory.new
+  end
+
+  def create
+    @product_description = ProductDescription.new
+    @product_category = ProductCategory.new
+    if @product_description.save
+      flash[:notice] = "Product was saved"
+      render :new
+    else
+      flash[:error] = "There was an error. Try again."
+      render :new
+    end
+  end
+
   private
 
-    def base
+  def pd_params
+    params.require(:product_description).permit(:def_retail_price_in_cents, :def_wholesale_price_in_cents, :description, :initial_cost_in_cents, :initial_stock_level, :name, :sku)
+  end
+
+  def pc_params
+    params.require(:product_category).permit(:category)
+  end
+
+  def base
       # this is the base for the cumulative data
-      @sum_sold, @sum_purch = 0, 0
-    end
+    @sum_sold, @sum_purch = 0, 0
+  end
 
   def stock_level
     arr = []

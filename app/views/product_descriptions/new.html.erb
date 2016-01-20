@@ -1,23 +1,65 @@
-<%= form_for @product_descriptions do |f| %>
-<!-- add error handling here, which all all organized under ONE div class which is "alert alert-danger"-->
-<!-- add blocks in lieu of the divs here... where it calls class 'form-group has-error' if there's an error and 'form-group' if there's no error.. use the helper method here where it takes a list of errors and a block-->
-   <%= f.label :default_retail_price %>
-   <%= f.text_field :def_retail_price , class: 'form-control', placeholder: 'anything cool?' %>
+<div class="container-fluid">
+   <div class="row">
+      <div class="col-xs-6">
+         <h3> New Product </h3>
+      </div>
+      <div class="col-xs-6" align="right">
+         <br>
+         <a href= "/" class="btn btn-info btn-sm">Back to Dashboard</a>
+      </div>
+   </div>
 
-   <%= f.label :default_wholesale_price %>
-   <%= f.text_field :def_wholesale_price , class: 'form-control', placeholder: 'anything cool?' %>
+   <div class="row">
 
-   <%= f.label :product_name %>
-   <%= f.text_field :name, class: 'form-control', placeholder: 'add some details here' %>
+      <div class="col-xs-4" align="justify">
+         <h4> Product Details </h4>
+         <p> Enter your product name, type and supplier details to set up your products. </p>
+         <p> You can also add tags to help searching and reporting on this product later.</p>
 
-   <%= f.label :description %>
-   <%= f.text_area :text, class: 'form-control', placeholder: 'add some details here' %>
+         <br>
+         <br>
+         <br>
+         <br>
+         <h4>Initial Values</h4>
+         <p>Set up the initial stock levels and values of your product here as well as the basic pricing</p>
+         <p>This information is then used to ensure accurate cost pricing and reporting in the future</p>
+         <p>You can always change this in the future, so don't worry!</p>
+      </div> 
 
-   <%= f.label :sku_number %>
-   <%= f.text_field :sku, class: 'form-control', placeholder: 'add some details here' %>
+      <div class="col-xs-2">
+      </div> 
 
-   <%= f.label :initial_cost %>
-   <%= f.text_field :init_cost , class: 'form-control', placeholder: 'anything cool?' %>
+      <div class="col-xs-6">
+         <%= form_for @product_description do |f| %>
+         <!-- add error handling here, which all all organized under ONE div class which is "alert alert-danger"-->
+         <!-- add blocks in lieu of the divs here... where it calls class 'form-group has-error' if there's an error and 'form-group' if there's no error.. use the helper method here where it takes a list of errors and a block-->
 
-   <%= f.submit "Save", class: 'btn btn-success btn-md' %>
-<% end %>
+            <%= f.label :product_name %>
+            <%= f.text_field :name, class: 'form-control' %>
+
+            <%= f.label :description %>
+            <%= f.text_area :description, class: 'form-control' %>
+
+            <%= f.label :sku_number %>
+            <%= f.text_field :sku, class: 'form-control' %>
+
+            <%= f.label :initial_cost %>
+            <%= f.text_field :init_cost , class: 'form-control' %>  
+
+            <%= f.label :initial_stock_level %>
+            <%= f.text_field :initial_stock_level , class: 'form-control' %>  
+
+            <%= f.label :intitial_retail_price %>
+            <%= f.text_field :def_retail_price , class: 'form-control' %>
+
+            <%= f.label :initial_wholesale_price %>
+            <%= f.text_field :def_wholesale_price , class: 'form-control' %>
+            <br>
+            <%= f.submit "Save", class: 'btn btn-success btn-sm' %>
+
+         <% end %>
+      </div>
+
+   </div>
+
+</div>
