@@ -7,7 +7,14 @@
         {name: "Profit", data: @cumu_profit_data },
         {name: "Revenue", data: @cumu_rev_data},
         {name: "Cost", data: @cumu_cost_data }
-      ] %>
+      ], {"library":
+                {
+                  title: "Placeholder",
+                "hAxis":{"title":"Date","gridlines":
+                    {"count":3,"color":"#CCC"},"format":"dd/MM/yy"},
+                "vAxis":{"title":"Sales in USD","gridlines":
+                    {"color":"#CCC"}}
+                }, "discrete": true} %>
         <div class="row">
           <div class="col-xs-9">
             <br>
@@ -26,7 +33,14 @@
       <h3 align="center">Stock Level Over Time (In Units)</h3>
       <%= column_chart [
         {name: "Stock Level", data: @stock_level_data } 
-      ] %>
+      ], {"library":
+                {
+                  title: "Placeholder",
+                "hAxis":{"title":"Date","gridlines":
+                    {"count":3,"color":"#CCC"},"format":"YYYY-MM-DD"},
+                "vAxis":{"title":"Number of Units in Stock","gridlines":
+                    {"color":"#CCC"}}
+                }, "discrete": true} %>
       <div class="row">
         <div class="col-xs-7">
           <br>

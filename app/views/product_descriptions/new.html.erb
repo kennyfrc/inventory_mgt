@@ -53,17 +53,18 @@
             <%= f.label :sku_number %>
             <%= f.text_field :sku, class: 'form-control' %>
 
-            <%= f.label :initial_cost %>
-            <%= f.text_field :init_cost , class: 'form-control' %> 
-
             <%= f.label :initial_stock_level %>
             <%= f.text_field :initial_stock_level , class: 'form-control' %>  
 
-            <%= f.label :intitial_retail_price %>
+            <%= f.label :initial_retail_price %>
             <%= f.text_field :def_retail_price , class: 'form-control' %>
 
             <%= f.label :initial_wholesale_price %>
             <%= f.text_field :def_wholesale_price , class: 'form-control' %>
+
+            <%= f.label :initial_purchase_price %>
+            <%= f.text_field :def_purchase_price , class: 'form-control' %> 
+
             <br>
             <%= f.submit "Save", class: 'btn btn-success btn-sm' %>
 
