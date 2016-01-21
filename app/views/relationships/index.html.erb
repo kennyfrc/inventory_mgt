@@ -1,0 +1,37 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-6">
+      <h3> Relationships </h3>
+    </div>
+    <div class="col-xs-6">
+      <div align="right">
+        <br>
+        <a href= "customers/new" class="btn btn-default btn-sm">New Customer</a>
+        <a href= "suppliers/new" class="btn btn-default btn-sm">New Supplier</a>
+      </div>
+    </div>
+  </div>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Company Name</th>
+            <th>Type</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+          </tr>
+        </thead>
+      <tbody>
+        <% @relationships.each do |relationship| %>
+          <tr>
+            <td><%= relationship.company_name %></td>
+            <td><%= relationship.model_name.human %></td>
+            <td><%= relationship.email %> </td>
+            <td><%= relationship.phone %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

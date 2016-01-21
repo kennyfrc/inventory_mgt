@@ -1,0 +1,101 @@
+<% if flash[:notice] %>
+    <div class='alert alert-success'>
+      <button type='button' class='close' data-dismiss='alert'>&times;</button>
+      <%= flash[:notice] %>
+    </div>
+  <% elsif flash[:error] %>
+    <div class='alert alert-danger'>
+      <button type='button' class='close' data-dismiss='alert'>&times;</button>
+      <%= flash[:error] %>
+    </div>
+  <% elsif flash[:alert] %>
+    <div class='alert alert-warning'>    
+      <button type='button' class='close' data-dismiss='alert'>&times;</button>
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
+<div class="container-fluid">
+   <div class="row">
+      <div class="col-xs-6">
+         <h3> New Customer </h3>
+      </div>
+      <div class="col-xs-6" align="right">
+         <br>
+         <a href= "/relationships" class="btn btn-default btn-sm">Back to Relationships</a>
+         <a href= "/" class="btn btn-default btn-sm">Go to Dashboard</a>
+      </div>
+   </div>
+
+   <div class="row">
+
+      <div class="col-xs-4" align="justify">
+         <h4> Customer Details </h4>
+         <p> Enter the company's name and select the company type. </p>
+         <p> Customers are used for Sales Orders. </p>
+         <br>
+         <br>
+         <br>
+         <br>
+         <br>
+         <br>
+         <br>
+         <br>
+         <br>
+         <br>
+         <br>
+         <br>
+         <br>
+         <h4> Company Address </h4>
+         <p> Add an address to this company, for use in your Sales Orders, Invoices and Purchase orders. </p>
+      </div> 
+
+      <div class="col-xs-2">
+      </div> 
+
+      <div class="col-xs-6">
+         <div class="form-group">
+            <%= form_for @customer do |f| %>
+            <!-- add error handling here, which all all organized under ONE div class which is "alert alert-danger"-->
+            <!-- add blocks in lieu of the divs here... where it calls class 'form-group has-error' if there's an error and 'form-group' if there's no error.. use the helper method here where it takes a list of errors and a block-->
+
+               <%= f.label :company_name %>
+               <%= f.text_field :company_name, class: 'form-control' %>
+
+               <%= f.label :tax_number %>
+               <%= f.text_area :tax_number, class: 'form-control' %>
+
+               <%= f.label :phone %>
+               <%= f.text_field :phone, class: 'form-control' %>
+
+               <%= f.label :fax %>
+               <%= f.text_field :fax, class: 'form-control' %>  
+
+               <%= f.label :website_url %>
+               <%= f.text_field :url , class: 'form-control' %>
+
+               <%= f.label :email %>
+               <%= f.text_field :email , class: 'form-control' %>
+
+               <%= f.label :address %>
+               <%= f.text_field :address , class: 'form-control' %> 
+
+               <%= f.label :city %>
+               <%= f.text_field :city , class: 'form-control' %>             
+
+               <%= f.label :region %>
+               <%= f.text_field :region , class: 'form-control' %> 
+
+               <%= f.label :country %>
+               <%= f.text_field :country , class: 'form-control' %> 
+
+               <br>
+               <%= f.submit "Save", class: 'btn btn-success btn-sm' %>
+
+            <% end %>
+         </div>
+      </div>
+
+   </div>
+
+</div>

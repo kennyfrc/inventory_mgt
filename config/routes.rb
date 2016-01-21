@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   get 'dashboard/investigate_inventory' => 'dashboard#investigate_inventory'
 
+  resources :relationships
   resources :purchase_line_items
   resources :sales_line_items
   resources :purchase_orders

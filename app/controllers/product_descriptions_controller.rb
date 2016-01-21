@@ -15,7 +15,7 @@ class ProductDescriptionsController < ApplicationController
   end
 
   def create
-    @product_description = ProductDescription.new
+    @product_description = ProductDescription.new(pd_params)
     @product_category = ProductCategory.new
     if @product_description.save
       flash[:notice] = "Product was saved"
