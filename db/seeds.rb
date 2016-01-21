@@ -28,8 +28,8 @@ Customer.create company_name: "Firefox Store"
 Customer.create company_name: "Opera Store"
 customers = Customer.all
 
-ProductDescription.create name: "Banana", sku: "0001", def_retail_price_in_cents: 6999, def_wholesale_price_in_cents: 5999, initial_cost_in_cents: 4999,initial_stock_level: 50, product_category: product_categories.find_by( category: "fruits" )
-ProductDescription.create name: "Apple", sku: "0002", def_retail_price_in_cents: 3999, def_wholesale_price_in_cents: 3499, initial_cost_in_cents: 2999,initial_stock_level: 40, product_category: product_categories.find_by( category: "fruits" )
+ProductDescription.create name: "Banana", sku: "0001", def_retail_price_in_cents: 6999, def_wholesale_price_in_cents: 5999, def_purchase_price_in_cents: 4999,initial_stock_level: 50, initial_units_sold: 20, initial_units_purchased: 30, product_category: product_categories.find_by( category: "fruits" )
+ProductDescription.create name: "Apple", sku: "0002", def_retail_price_in_cents: 3999, def_wholesale_price_in_cents: 3499, def_purchase_price_in_cents: 2999,initial_stock_level: 40, initial_units_sold: 20, initial_units_purchased: 30, product_category: product_categories.find_by( category: "fruits" )
 product_descriptions = ProductDescription.all
 
 PurchaseOrder.create po_number: "PO001", created_at: DateTime.now - 5.days, supplier: suppliers.find_by(company_name: "Atom Company")

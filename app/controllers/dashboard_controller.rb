@@ -32,6 +32,8 @@ class DashboardController < ApplicationController
       flash[:alert] = "Replenish your #{@product_descriptions.pluck(:name)[0]} stock ASAP. You have on average less than 7 days worth of stock left. Check 'Study By-SKU Inventory' for more [In Stock Level Over Time Graph]."
     elsif @days_on_hand < 3
       flash[:error] = "Replenish your #{@product_descriptions.pluck(:name)[0]} stock ASAP. You have less than 3 days worth of stock left."
+    else
+      flash[:error] = "ERROR in Dashboard#Controller"
     end
   end
 
@@ -43,17 +45,27 @@ class DashboardController < ApplicationController
   end
 
   def sales_graph
-       # sales graph
+    # sales graph
     @dates = SalesLineItem.where(product_description: @product_descriptions).group_by_day(:created_at, format: "%B %d, %Y").count.map {|key, value| key} 
+    initial_date_time = DateTime.strptime(@dates.first, "%B %d, %Y") - 1.days
+    @parsed_date_time = initial_date_time.strftime("%B %d, %Y")
+    @dates = @dates.unshift(@parsed_date_time) 
+    init_revenue = @product_descriptions.map {|e| e.init_revenue}.reduce(:+)
     @revenue = SalesLineItem.where(product_description: @product_descriptions).map {|a| a.revenue.round(2)} 
+    @revenue = @revenue.unshift(init_revenue)
     @rev_data = Hash[*@dates.zip(@revenue).flatten].reject {|key, val| val == nil }
-    @cumu_rev_data = @rev_data.map { |x,y| { x => (@sum_rev += y) } }.reduce({}, :merge) # without merge it doesn't take out the array  
+    @cumu_rev_data = @rev_data.map { |x,y| { x => (@sum_rev += y).round(2) } }.reduce({}, :merge) # without merge it doesn't take out the array  
   end
 
   def cost_graph
     # cost graph
     @dates2 = PurchaseLineItem.where(product_description: @product_descriptions).group_by_day(:created_at, format: "%B %d, %Y").count.map {|key, value| key} 
+    initial_date_time_cost = DateTime.strptime(@dates.first, "%B %d, %Y") - 1.days
+    @parsed_date_time_cost = initial_date_time_cost.strftime("%B %d, %Y")
+    @dates2 = @dates2.unshift(@parsed_date_time_cost)
+    init_cost = @product_descriptions.map {|e| e.init_cost}.reduce(:+)
     @cost = PurchaseLineItem.where(product_description: @product_descriptions).map {|a| a.cost.round(2)} 
+    @cost = @cost.unshift(init_cost)
     @cost_data = Hash[*@dates2.zip(@cost).flatten].reject {|key, val| val == nil }
     @cumu_cost_data = @cost_data.map { |x,y| { x => (@sum_cost += y) } }.reduce({}, :merge) # without merge it doesn't take out the array  s
   end
@@ -70,7 +82,9 @@ class DashboardController < ApplicationController
     @dates2 = PurchaseLineItem.where(product_description: @product_descriptions).group_by_day(:created_at, format: "%B %d, %Y").count.map {|key, value| key}
     @cumu_sold = SalesLineItem.where(product_description: @product_descriptions).group_by_day(:created_at, format: "%B %d, %Y").sum(:units_sold).map { |x,y| { x => (@sum_sold += y) } }.reduce({}, :merge).values
     @cumu_purch = PurchaseLineItem.where(product_description: @product_descriptions).group_by_day(:created_at, format: "%B %d, %Y").sum(:units_purchased).map { |x,y| { x => (@sum_purch += y) } }.reduce({}, :merge).values
+    init_stock = @product_descriptions.map {|e| e.initial_stock_level}.reduce(:+)
     @stock_level = @cumu_purch.zip(@cumu_sold).map {|purch, sold| purch - sold }
+    @stock_level = @stock_level.unshift(init_stock)
     @stock_level_data = Hash[*@dates2.zip(@stock_level).flatten]
   end
 

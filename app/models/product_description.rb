@@ -27,11 +27,19 @@ class ProductDescription < ActiveRecord::Base
     write_attribute(:def_wholesale_price_in_cents, p.to_f.round(2) * 100)
   end
 
-  def init_cost
-    initial_cost_in_cents.to_f / 100 || read_attribute(:init_cost)
+  def def_purchase_price
+    def_purchase_price_in_cents.to_f / 100 || read_attribute(:def_purchase_price)
   end
 
-  def init_cost=(p)
-    write_attribute(:initial_cost_in_cents, p.to_f.round(2) * 100)
+  def def_purchase_price=(p)
+    write_attribute(:def_purchase_price_in_cents, p.to_f.round(2) * 100)
+  end
+
+  def init_revenue
+    def_retail_price * initial_units_sold
+  end
+
+  def init_cost
+    def_purchase_price * initial_units_sold
   end
 end
