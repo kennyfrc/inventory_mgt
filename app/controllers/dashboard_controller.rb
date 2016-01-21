@@ -11,7 +11,7 @@ class DashboardController < ApplicationController
     days_on_hand
 
     if @days_on_hand < 7
-      flash[:alert] = "Replenish your stock ASAP. You have on average less than 7 days worth of stock left. Check 'Study By-SKU Inventory' for more [In Stock Level Over Time Graph]."
+      flash[:alert] = "You have less than 7 days worth of stock left (on average). Check 'Study By-SKU Inventory' for more."
     elsif @days_on_hand < 3
       flash[:error] = "Replenish your stock ASAP. You have less than 3 days worth of stock left."
     end

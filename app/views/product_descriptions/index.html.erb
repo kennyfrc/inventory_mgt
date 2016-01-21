@@ -6,9 +6,9 @@
     <div class="col-xs-6">
       <div align="right">
         <br>
-        <a href= "dashboard/investigate_inventory" class="btn btn-success btn-sm">Study By-SKU Inventory</a>
-        <button class="btn btn-info btn-sm">Update via CSV</button>
-        <%= link_to "New Product", new_product_description_path, class: "btn btn-info btn-sm" %>
+        <a href= "dashboard/investigate_inventory" class="btn btn-default btn-sm">Study By-SKU Inventory</a>
+        <button class="btn btn-default btn-sm">Update via CSV</button>
+        <%= link_to "New Product", new_product_description_path, class: "btn btn-default btn-sm" %>
       </div>
     </div>
   </div>
@@ -31,8 +31,10 @@
             <td><%= @stock_level_index[product.name] %> </td>
             <td><%= @avg_sales[product.name].round(2) %></td>
             <td>
-              <span class="text-danger"><%= "CRITICAL" if (@stock_level_index[product.name]) < @avg_sales[product.name] * 3 %></span>
+              <span class="text-danger"><%= "CRITICAL" if (@stock_level_index[product.name]) < @avg_sales[product.name] * 3 %></span> 
+              <%= (link_to "Replenish Now >", "#", class: "btn btn-sm btn-danger" ) if (@stock_level_index[product.name]) < @avg_sales[product.name] * 3  %> 
               <span class="text-danger"><%= "YES" if (@stock_level_index[product.name] < @avg_sales[product.name] * 4) && (@stock_level_index[product.name] > @avg_sales[product.name] * 2) %></span>
+              <%= (link_to "Replenish Now >", "#", class: "btn btn-sm btn-warning" ) if (@stock_level_index[product.name] < @avg_sales[product.name] * 4) && (@stock_level_index[product.name] > @avg_sales[product.name] * 2)  %>
               <span class="text-success"><%= "NO" if (@stock_level_index[product.name]) > @avg_sales[product.name] * 3 %></span>
             </td>
           </tr>

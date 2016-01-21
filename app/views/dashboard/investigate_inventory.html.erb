@@ -5,7 +5,7 @@
 <%= form_tag dashboard_investigate_inventory_path, method: :get do %>
   <p>
     <%= text_field_tag :query, params[:query], class: "form-control" %>
-    <%= submit_tag "Search", name: nil, class: "btn btn-info" %> <br>
+    <%= submit_tag "Search", name: nil, class: "btn btn-default" %> <br>
     <%= "Note: This demo has bananas and apples. Try searching for it!" %>
   </p>
 <% end %>
@@ -46,8 +46,8 @@
     <div class="row">
       <div align="right">
         <%= (link_to "Replenish #{@product_descriptions.pluck(:name)[0]}s Now", "#", class: "btn btn-success btn-sm" ) if (@days_on_hand < 3) %>
-        <%= (link_to "No need to replenish #{@product_descriptions.pluck(:name)[0]}s Now", "#", class: "btn btn-info btn-sm disabled" ) if (@days_on_hand > 2) %>
-        <a href= "/" class="btn btn-info btn-sm">Back to Dashboard</a>
+        <%= (link_to "No need to replenish #{@product_descriptions.pluck(:name)[0]}s Now", "#", class: "btn btn-default btn-sm disabled" ) if (@days_on_hand > 2) %>
+        <a href= "/" class="btn btn-default btn-sm">Back to Dashboard</a>
       </div>
     </div>
   </div>

@@ -39,12 +39,22 @@
 
             <%= f.label :description %>
             <%= f.text_area :description, class: 'form-control' %>
+            <div class="form-group">
+               <%= f.label :product_category_id, 'Category' %>
+               <%= f.select :product_category_id, category_select, {include_blank: true}, class: 'form-control' %>
+            </div>
+            <div class="form-group" style="display:none;">
+               <%= f.fields_for :product_category do |pc| %>
+                  <%= pc.label :category %>
+                  <%= pc.text_field :category %>
+               <% end %>
+            </div>
 
             <%= f.label :sku_number %>
             <%= f.text_field :sku, class: 'form-control' %>
 
             <%= f.label :initial_cost %>
-            <%= f.text_field :init_cost , class: 'form-control' %>  
+            <%= f.text_field :init_cost , class: 'form-control' %> 
 
             <%= f.label :initial_stock_level %>
             <%= f.text_field :initial_stock_level , class: 'form-control' %>  
