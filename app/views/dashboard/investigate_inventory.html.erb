@@ -24,7 +24,7 @@
   <p>
     <%= text_field_tag :query, params[:query], class: "form-control" %>
     <%= submit_tag "Search", name: nil, class: "btn btn-default" %> <br>
-    <%= "Note: This demo has bananas and apples. Try searching for it!" %>
+    <small><%= "Note: This demo has \"banana\" and \"apple\". Try searching for it!" %></small>
   </p>
 <% end %>
 </form>
@@ -52,8 +52,6 @@
   <br>
   <br>
   </div>
-
-
   <div class="col-md-7">
     <h3 align="center">Profit Over Time for <%="#{@product_descriptions.pluck(:name)[0]}s (In USD)"%></h3>
           <%= line_chart [

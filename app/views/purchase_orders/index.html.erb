@@ -1,0 +1,34 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-6">
+      <h3> Purchase Orders </h3>
+    </div>
+    <div class="col-xs-6">
+      <div align="right">
+        <br>
+        <%= link_to "New Purchase Order", "#", class: "btn btn-info btn-sm" %>
+      </div>
+    </div>
+  </div>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Purchase Order #</th>
+            <th>Supplier Name</th>
+            <th>Total Bought from (USD) </th>
+          </tr>
+        </thead>
+      <tbody>
+        <% @purchase_orders.each do |po| %>
+          <tr>
+            <td><%= po.po_number %></td>
+            <td><%= po.supplier.company_name %></td>
+            <td><%= "$ #{po.purchase_line_items.map {|li| li.cost }.reduce(:+).round(2)}" %> </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
