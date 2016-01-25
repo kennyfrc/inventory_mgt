@@ -42,15 +42,15 @@
             <%= f.fields_for :product_description do |pd| %>
             <tr>
               <th><%= pd.label :product_description_id, "Product Name:" %></th>
-              <th><%= pd.label :units_sold, "Quantity:" %></th>
-              <th><%= pd.label :retail_price, "Retail Price:" %></th>
+              <th><%= f.label :units_sold, "Quantity:" %></th>
+              <th><%= f.label :retail_price, "Retail Price:" %></th>
             </tr>
           </thead>
         <tbody>
             <tr>
               <td><%= pd.select :product_description_id, array_of_arrays_products, {}, class: 'form-control' %></td>
-              <td><%= pd.text_field :units_sold, class: 'form-control' %> </td>
-              <td><%= pd.text_field :retail_price, class: 'form-control' %> </td>
+              <td><%= f.text_field :units_sold, class: 'form-control' %> </td>
+              <td><%= f.text_field :price, class: 'form-control' %> </td>
             </tr>
           </tbody>
           <% end %>
@@ -61,6 +61,7 @@
 
    <div class="row">
     <div class="col-xs-12" align="right">
+
      <br>
 
      <%= f.submit "Create Sales Order", class: 'btn btn-success btn-sm' %>

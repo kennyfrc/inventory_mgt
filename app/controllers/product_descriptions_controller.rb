@@ -15,6 +15,7 @@ class ProductDescriptionsController < ApplicationController
   end
 
   def create
+    raise "#{params} && #{pd_params}"
     @product_description = ProductDescription.new(pd_params)
     if params[:product_description][:product_category_id] == 'pop_out_form' && params[:product_description][:product_category][:category].present? #if it *is* a pop_out_form and there's a value present
       new_category = ProductCategory.create(category: params[:product_description][:product_category][:category]) # then set the value to new_category

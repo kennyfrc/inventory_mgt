@@ -72,6 +72,17 @@ class DashboardController < ApplicationController
 
   def profit_graph
     # profit graph
+    if @revenue.count > @cost.count
+      injector = @revenue.count - @cost.count
+      injector.times do 
+        @cost << 0
+      end
+    elsif @revenue.count < @cost.count
+      injector = @cost.count - @revenue.count
+      injector.times do
+        @revenue << 0
+      end
+    end
     @profit = @revenue.zip(@cost).map { |r, c| (r - c).round(2)} 
     @profit_data = Hash[*@dates2.zip(@profit).flatten].reject {|key, val| val == nil }
     @cumu_profit_data = @profit_data.map { |x,y| { x => (@sum_profit += y) } }.reduce({}, :merge)
@@ -90,7 +101,7 @@ class DashboardController < ApplicationController
   end
 
   def days_on_hand
-        # latest stock level
+    # latest stock level
     @latest_stock_level = @stock_level.last
 
     # average sales (prev 5 days)
