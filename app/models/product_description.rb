@@ -36,10 +36,20 @@ class ProductDescription < ActiveRecord::Base
   end
 
   def init_revenue
-    def_retail_price * initial_units_sold
+    if initial_units_sold
+      def_retail_price * initial_units_sold
+    else
+      initial_units_sold = 0
+      def_retail_price * initial_units_sold
+    end
   end
 
   def init_cost
-    def_purchase_price * initial_units_sold
+    if initial_units_purchased
+      def_purchase_price * initial_units_purchased
+    else
+      initial_units_purchased = 0
+      def_purchase_price * initial_units_purchased
+    end
   end
 end

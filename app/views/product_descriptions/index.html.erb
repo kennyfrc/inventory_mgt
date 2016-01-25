@@ -27,8 +27,8 @@
         <% @product_descriptions.each do |product| %>
           <tr>
             <td><%= product.name %></td>
-            <td><%= product.product_category.category %></td>
-            <td><%= @stock_level_index[product.name] %> </td>
+            <td><%= product.product_category.category.capitalize %></td>
+            <td><%= @stock_level_index[product.name] ? @stock_level_index[product.name] : 0 %> </td>
             <td><%= @avg_sales[product.name].round(2) %></td>
             <td>
               <span class="text-danger"><%= "CRITICAL" if (@stock_level_index[product.name]) < @avg_sales[product.name] * 3 %></span> 
@@ -36,6 +36,7 @@
               <span class="text-danger"><%= "YES" if (@stock_level_index[product.name] < @avg_sales[product.name] * 4) && (@stock_level_index[product.name] > @avg_sales[product.name] * 2) %></span>
               <%= (link_to "Replenish Now >", "#", class: "btn btn-sm btn-warning" ) if (@stock_level_index[product.name] < @avg_sales[product.name] * 4) && (@stock_level_index[product.name] > @avg_sales[product.name] * 2)  %>
               <span class="text-success"><%= "NO" if (@stock_level_index[product.name]) > @avg_sales[product.name] * 3 %></span>
+              <span class="text-muted"><%= "N/A" if (@stock_level_index[product.name]) == 0 %></span>
             </td>
           </tr>
         <% end %>

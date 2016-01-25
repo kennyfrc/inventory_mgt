@@ -47,7 +47,7 @@ class DashboardController < ApplicationController
   def sales_graph
     # sales graph
     @dates = SalesLineItem.where(product_description: @product_descriptions).group_by_day(:created_at, format: "%B %d, %Y").count.map {|key, value| key} 
-    initial_date_time = DateTime.strptime(@dates.first, "%B %d, %Y") - 1.days
+    initial_date_time = @dates.first ? DateTime.strptime(@dates.first, "%B %d, %Y") - 1.days : DateTime.now
     @parsed_date_time = initial_date_time.strftime("%B %d, %Y")
     @dates = @dates.unshift(@parsed_date_time) 
     init_revenue = @product_descriptions.map {|e| e.init_revenue}.reduce(:+)
@@ -60,7 +60,7 @@ class DashboardController < ApplicationController
   def cost_graph
     # cost graph
     @dates2 = PurchaseLineItem.where(product_description: @product_descriptions).group_by_day(:created_at, format: "%B %d, %Y").count.map {|key, value| key} 
-    initial_date_time_cost = DateTime.strptime(@dates.first, "%B %d, %Y") - 1.days
+    initial_date_time_cost = @dates2.first ? DateTime.strptime(@dates.first, "%B %d, %Y") - 1.days : DateTime.now
     @parsed_date_time_cost = initial_date_time_cost.strftime("%B %d, %Y")
     @dates2 = @dates2.unshift(@parsed_date_time_cost)
     init_cost = @product_descriptions.map {|e| e.init_cost}.reduce(:+)
@@ -81,6 +81,7 @@ class DashboardController < ApplicationController
     # cumulative items sold and purchased
     @dates2 = PurchaseLineItem.where(product_description: @product_descriptions).group_by_day(:created_at, format: "%B %d, %Y").count.map {|key, value| key}
     @cumu_sold = SalesLineItem.where(product_description: @product_descriptions).group_by_day(:created_at, format: "%B %d, %Y").sum(:units_sold).map { |x,y| { x => (@sum_sold += y) } }.reduce({}, :merge).values
+    @cumu_sold[0] ? @cumu_sold : @cumu_sold << 0
     @cumu_purch = PurchaseLineItem.where(product_description: @product_descriptions).group_by_day(:created_at, format: "%B %d, %Y").sum(:units_purchased).map { |x,y| { x => (@sum_purch += y) } }.reduce({}, :merge).values
     init_stock = @product_descriptions.map {|e| e.initial_stock_level}.reduce(:+)
     @stock_level = @cumu_purch.zip(@cumu_sold).map {|purch, sold| purch - sold }
@@ -96,6 +97,7 @@ class DashboardController < ApplicationController
     @avg_sales = SalesLineItem.where(product_description: @product_descriptions).where(:created_at => (DateTime.now - 5.days)..(DateTime.now)).average(:units_sold).to_f
 
     # days on hand 
+    return @days_on_hand = 0 if @avg_sales == 0
     @days_on_hand = @latest_stock_level / @avg_sales
   end
 end

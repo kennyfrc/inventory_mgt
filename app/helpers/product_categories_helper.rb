@@ -1,8 +1,8 @@
 module ProductCategoriesHelper
 
-  def category_select
+  def array_of_arrays_categories
     categories = ProductCategory.all.map{|pc| [pc.category.capitalize,pc.id]}
-    categories << ['Other','other']
+    categories << ['New Category','pop_out_form']
   end
 
 end

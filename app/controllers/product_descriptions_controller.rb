@@ -16,10 +16,16 @@ class ProductDescriptionsController < ApplicationController
 
   def create
     @product_description = ProductDescription.new(pd_params)
-    @product_category = ProductCategory.new
+    if params[:product_description][:product_category_id] == 'pop_out_form' && params[:product_description][:product_category][:category].present? #if it *is* a pop_out_form and there's a value present
+      new_category = ProductCategory.create(category: params[:product_description][:product_category][:category]) # then set the value to new_category
+      if new_category # if new_category exists
+        @product_description.product_category_id = new_category.id #set the ID of new_category to product_description.product_category_id (automatically sets teh value??)
+      end
+    end
+    # @product_category = ProductCategory.new
     if @product_description.save
       flash[:notice] = "Product was saved"
-      render :new
+      redirect_to product_descriptions_path
     else
       flash[:error] = "There was an error. Try again."
       render :new
@@ -29,11 +35,7 @@ class ProductDescriptionsController < ApplicationController
   private
 
   def pd_params
-    params.require(:product_description).permit(:def_retail_price_in_cents, :def_wholesale_price_in_cents, :description, :initial_cost_in_cents, :initial_stock_level, :name, :sku)
-  end
-
-  def pc_params
-    params.require(:product_category).permit(:category)
+    params.require(:product_description).permit(:def_retail_price, :def_wholesale_price, :description, :initial_purchase_price, :initial_stock_level, :name, :sku, :product_category_id)
   end
 
   def base
@@ -49,7 +51,7 @@ class ProductDescriptionsController < ApplicationController
       @cumu_sold = SalesLineItem.where(product_description: @product_descriptions.where(name: product.name)).group_by_day(:created_at, format: "%B %d, %Y").sum(:units_sold).map { |x,y| { x => (@sum_sold += y) } }.reduce({}, :merge).values
       @cumu_purch = PurchaseLineItem.where(product_description: @product_descriptions.where(name: product.name)).group_by_day(:created_at, format: "%B %d, %Y").sum(:units_purchased).map { |x,y| { x => (@sum_purch += y) } }.reduce({}, :merge).values
       @stock_level = @cumu_purch.zip(@cumu_sold).map {|purch, sold| purch - sold }
-      arr << product.name << @stock_level.last
+      arr << product.name << ( @stock_level.last ? @stock_level.last : 0 )
     end
     @stock_level_index = Hash[*arr]
   end

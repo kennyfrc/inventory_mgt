@@ -39,8 +39,8 @@
   <%= "Total Expenses for #{@product_descriptions.pluck(:name)[0]}s: $#{@cumu_cost_data.values.last.round(2)}" %><br>
   <br>
   <b><%= "Volume Metrics" %><br></b>
-  <%= "Total Units Sold for #{@product_descriptions.pluck(:name)[0]}s: #{@cumu_sold.last.round(0)} Units" %><br>
-  <%= "Total Units Purchased for #{@product_descriptions.pluck(:name)[0]}s: #{@cumu_purch.last.round(0)} Units" %><br>
+  <%= "Total Units Sold for #{@product_descriptions.pluck(:name)[0]}s: #{@cumu_sold.last ? @cumu_sold.last.round(0) : 0} Units" %><br>
+  <%= "Total Units Purchased for #{@product_descriptions.pluck(:name)[0]}s: #{@cumu_purch.last ? @cumu_purch.last.round(0) : 0} Units" %><br>
   <br>
   <b><%= "Inventory Metrics"%><br></b>
   <%= "Current Stock Level for #{@product_descriptions.pluck(:name)[0]}s: #{@stock_level.last} Units" %><br>

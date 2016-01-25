@@ -41,12 +41,13 @@
             <%= f.text_area :description, class: 'form-control' %>
             <div class="form-group">
                <%= f.label :product_category_id, 'Category' %>
-               <%= f.select :product_category_id, category_select, {include_blank: true}, class: 'form-control' %>
+               <%= f.select :product_category_id, array_of_arrays_categories, {include_blank: true}, class: 'form-control' %>
             </div>
-            <div class="form-group" style="display:none;">
+
+            <div class="form-group" style="display:none;" id="pop_out_form">
                <%= f.fields_for :product_category do |pc| %>
                   <%= pc.label :category %>
-                  <%= pc.text_field :category %>
+                  <%= pc.text_field :category, class: 'form-control' %>
                <% end %>
             </div>
 
