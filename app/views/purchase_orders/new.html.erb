@@ -1,1 +1,75 @@
-<h1> hello from purchase_orders/new </h1>
+<div class="container-fluid">
+   <div class="row">
+      <div class="col-xs-6">
+         <h3> Purchase Order - New </h3>
+      </div>
+      <div class="col-xs-6" align="right">
+         <br>
+         <a href= "/" class="btn btn-default btn-sm">Back to Dashboard</a>
+      </div>
+   </div>
+
+   <div class="row">
+    <%= form_for @purchase_line_item do |f| %>
+      <div class="col-xs-4">
+
+        <%= f.fields_for :purchase_order do |po| %>
+
+          <%= po.label :supplier_id, "Payable To:" %>
+          <%= po.select :supplier_id, array_of_arrays_suppliers, {}, class: 'form-control' %>
+
+      </div> 
+
+      <div class="col-xs-4">
+          <%= po.label :purchase_order_number %>
+          <%= po.text_field :po_number, class: 'form-control' %>
+        <% end %>
+
+      </div> 
+
+      <div class="col-xs-4">
+
+      </div>
+
+   </div>
+
+   <div class="row">
+    <br>
+    <div class="col-xs-12 well">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <%= f.fields_for :product_description do |pd| %>
+            <tr>
+              <th><%= pd.label :product_description_id, "Product Name:" %></th>
+              <th><%= f.label :units_purchased, "Quantity:" %></th>
+              <th><%= f.label :price, "Purchase Price:" %></th>
+            </tr>
+          </thead>
+        <tbody>
+            <tr>
+              <td><%= pd.select :product_description_id, array_of_arrays_products, {}, class: 'form-control' %></td>
+              <td><%= f.text_field :units_purchased, class: 'form-control' %> </td>
+              <td><%= f.text_field :price, class: 'form-control' %> </td>
+            </tr>
+          </tbody>
+          <% end %>
+        </table>
+      </div>
+    </div>
+   </div>
+
+   <div class="row">
+    <div class="col-xs-12" align="right">
+
+     <br>
+
+     <%= f.submit "Create Purchase Order", class: 'btn btn-success btn-sm' %>
+
+     <% end %>
+
+    </div>
+
+   </div>
+
+</div>

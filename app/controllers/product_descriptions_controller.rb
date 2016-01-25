@@ -15,7 +15,6 @@ class ProductDescriptionsController < ApplicationController
   end
 
   def create
-    raise "#{params} && #{pd_params}"
     @product_description = ProductDescription.new(pd_params)
     if params[:product_description][:product_category_id] == 'pop_out_form' && params[:product_description][:product_category][:category].present? #if it *is* a pop_out_form and there's a value present
       new_category = ProductCategory.create(category: params[:product_description][:product_category][:category]) # then set the value to new_category
@@ -51,6 +50,17 @@ class ProductDescriptionsController < ApplicationController
       @sum_purch = 0
       @cumu_sold = SalesLineItem.where(product_description: @product_descriptions.where(name: product.name)).group_by_day(:created_at, format: "%B %d, %Y").sum(:units_sold).map { |x,y| { x => (@sum_sold += y) } }.reduce({}, :merge).values
       @cumu_purch = PurchaseLineItem.where(product_description: @product_descriptions.where(name: product.name)).group_by_day(:created_at, format: "%B %d, %Y").sum(:units_purchased).map { |x,y| { x => (@sum_purch += y) } }.reduce({}, :merge).values
+    if @cumu_sold.count > @cumu_purch.count
+      injector = @cumu_sold.count - @cumu_purch.count
+      injector.times do 
+        @cumu_purch << 0
+      end
+    elsif @cumu_sold.count < @cumu_purch.count
+      injector = @cumu_purch.count - @cumu_sold.count
+      injector.times do
+        @cumu_sold << 0
+      end
+    end
       @stock_level = @cumu_purch.zip(@cumu_sold).map {|purch, sold| purch - sold }
       arr << product.name << ( @stock_level.last ? @stock_level.last : 0 )
     end

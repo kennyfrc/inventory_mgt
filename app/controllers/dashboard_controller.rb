@@ -95,6 +95,17 @@ class DashboardController < ApplicationController
     @cumu_sold[0] ? @cumu_sold : @cumu_sold << 0
     @cumu_purch = PurchaseLineItem.where(product_description: @product_descriptions).group_by_day(:created_at, format: "%B %d, %Y").sum(:units_purchased).map { |x,y| { x => (@sum_purch += y) } }.reduce({}, :merge).values
     init_stock = @product_descriptions.map {|e| e.initial_stock_level}.reduce(:+)
+    if @cumu_sold.count > @cumu_purch.count
+      injector = @cumu_sold.count - @cumu_purch.count
+      injector.times do 
+        @cost << 0
+      end
+    elsif @cumu_sold.count < @cumu_purch.count
+      injector = @cumu_purch.count - @cumu_sold.count
+      injector.times do
+        @cumu_sold << 0
+      end
+    end
     @stock_level = @cumu_purch.zip(@cumu_sold).map {|purch, sold| purch - sold }
     @stock_level = @stock_level.unshift(init_stock)
     @stock_level_data = Hash[*@dates2.zip(@stock_level).flatten]
