@@ -22,6 +22,10 @@ gem 'chartkick'
 gem 'groupdate'
 gem 'active_median'
 
+group :production do
+  gem 'rails_12factor' # USE THIS OR ELSE YOU CANT DEPLOY. Thanks :)
+end
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 # Use postgresql as the database for Active Record
