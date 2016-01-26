@@ -4,11 +4,18 @@ source 'https://rubygems.org'
 gem "rails-erd"
 
 # user authentication
-
 gem 'devise'
+
+# install prawn pdf
+gem 'prawn'
+gem 'prawn-table'
+gem 'paperclip'
 
 # css framework
 gem 'bootstrap-sass'
+
+# figaro
+gem 'figaro'
 
 # charting
 gem 'chartkick'

@@ -12,7 +12,7 @@ class PurchaseOrdersController < ApplicationController
   end
   
   def show
-
+    @purchase_order = PurchaseOrder.find(params[:id])
   end
 
   

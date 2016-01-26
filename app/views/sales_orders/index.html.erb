@@ -17,6 +17,7 @@
             <th>Sales Order #</th>
             <th>Customer Name</th>
             <th>Total Billed to Customer (USD) </th>
+            <th colspan="1"></th>
           </tr>
         </thead>
       <tbody>
@@ -25,6 +26,7 @@
             <td><%= so.so_number %></td>
             <td><%= so.customer.company_name %></td>
             <td><%= "$ #{so.sales_line_items.map {|li| li.revenue }.reduce(:+).round(2)}" %> </td>
+            <td><%= link_to "Show Details", sales_order_path(so) %> </td>
           </tr>
         <% end %>
         </tbody>

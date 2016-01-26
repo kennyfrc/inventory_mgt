@@ -15,5 +15,59 @@
     </div>
   <% end %>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-6">
+      <h3> Purchase Order - #<%= @purchase_order.po_number %> </h3>
+    </div>
+    <div class="col-xs-6">
+      <div align="right">
+        <br>
+        <%= link_to "Back to Purchase Order Index", purchase_orders_path, class: "btn btn-default btn-sm" %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-8">
+      <p><b> Payable To: </b> <%= @purchase_order.supplier.company_name %>  </p>
+      <p> <b> Address: </b> <%= @purchase_order.supplier.address %></p>
+      <p><%= @purchase_order.supplier.city %>, <%= @purchase_order.supplier.region %> </p>
+      <p><%= @purchase_order.supplier.country %> </p>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>Quantity Sold</th>
+                <th>Retail Price </th>
+                <th>Total</th>
+              </tr>
+            </thead>
+          <tbody>
+            <% @purchase_order.purchase_line_items.each do |li| %>
+              <tr>
+                <td><%= li.product_description.name %></td>
+                <td><%= li.units_purchased %></td>
+                <td><%= li.price %> </td>
+                <td><%= "$" + " #{(li.price * li.units_purchased).round(2)}" %> </td>
+              </tr>
+              <% end %>
+          </tbody>
+            
 
-<p> hello there from purchase/show </p>
+          </table>
+          <p><b> Total Payable:</b> <%= "$" + " #{(@purchase_order.purchase_line_items.map {|item| item.units_purchased * item.price }.reduce(:+))}" %> </p>
+        </div>
+    </div>
+    <div class="col-xs-4">
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <br>
+        <%= link_to "Print Receipt (PDF)", purchase_order_path(@purchase_order, format: "pdf"), class: "btn btn-default" %>
+        <%= link_to "Email Receipt (PDF)", new_purchase_order_mail_for_partner_path(purchase_order_id: @purchase_order.id), class: "btn btn-default" %>
+      </div>    
+    </div>
+  </div>
+</div>
+

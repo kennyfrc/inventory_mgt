@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :mail_for_partners
   devise_for :users
   resources :users, only: [:update, :show, :index]
   root to: 'welcome#about'
@@ -10,8 +11,12 @@ Rails.application.routes.draw do
   resources :relationships
   resources :purchase_line_items
   resources :sales_line_items
-  resources :purchase_orders
-  resources :sales_orders
+  resources :purchase_orders do
+    resources :mail_for_partners
+  end
+  resources :sales_orders do
+    resources :mail_for_partners
+  end
   resources :suppliers
   resources :customers
   resources :product_descriptions

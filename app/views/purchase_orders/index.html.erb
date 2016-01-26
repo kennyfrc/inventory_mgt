@@ -17,6 +17,7 @@
             <th>Purchase Order #</th>
             <th>Supplier Name</th>
             <th>Total Bought from (USD) </th>
+            <th colspan="1"></th>
           </tr>
         </thead>
       <tbody>
@@ -25,6 +26,7 @@
             <td><%= po.po_number %></td>
             <td><%= po.supplier.company_name %></td>
             <td><%= "$ #{po.purchase_line_items.map {|li| li.cost }.reduce(:+).round(2)}" %> </td>
+            <td><%= link_to "Show Details", purchase_order_path(po) %> </td>
           </tr>
         <% end %>
         </tbody>
