@@ -15,6 +15,7 @@ class ProductDescriptionsController < ApplicationController
     @product_category = ProductCategory.new
   end
 
+
   def create
     @product_description = ProductDescription.new(pd_params)
     if params[:product_description][:product_category_id] == 'pop_out_form' && params[:product_description][:product_category][:category].present? #if it *is* a pop_out_form and there's a value present

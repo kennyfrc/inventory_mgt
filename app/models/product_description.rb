@@ -53,4 +53,5 @@ class ProductDescription < ActiveRecord::Base
       def_purchase_price * initial_units_purchased
     end
   end
+
 end

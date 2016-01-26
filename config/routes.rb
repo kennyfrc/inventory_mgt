@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :mail_for_partners
   devise_for :users
   resources :users, only: [:update, :show, :index]
-  root to: 'welcome#about'
+  root to: 'dashboard#show'
 
   get 'dashboard/investigate_inventory' => 'dashboard#investigate_inventory'
   get 'dashboard' => 'dashboard#show'

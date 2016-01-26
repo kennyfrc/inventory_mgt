@@ -1,14 +1,16 @@
 <h2>Log in</h2>
+<p>Note: use "admin@example.com" as username & "helloworld" as password </p>
 
+<div class="col-xs-4">
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <%= f.email_field :email, autofocus: true, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+    <%= f.password_field :password, autocomplete: "off", class: "form-control"  %>
   </div>
 
   <% if devise_mapping.rememberable? -%>
@@ -19,8 +21,20 @@
   <% end -%>
 
   <div class="actions">
-    <%= f.submit "Log in" %>
+    <%= f.submit "Log in", class: "btn btn-default btn-sm"  %>
   </div>
 <% end %>
 
 <%= render "devise/shared/links" %>
+</div>
+<div class="col-xs-2">
+</div>
+<div class="col-xs-6">
+<h4> To Do List </h4>
+<ul>
+  <li>Import / Export to and from CSV</li>
+  <li>Multitenancy </li>
+  <li>Billing via Braintree </li>
+</ul>
+
+</div>
