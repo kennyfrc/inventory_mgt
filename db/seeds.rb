@@ -14,32 +14,41 @@ PurchaseOrder.delete_all
 SalesOrder.delete_all
 PurchaseLineItem.delete_all
 SalesLineItem.delete_all
+User.delete_all
+
+admin = User.new(
+   email:    'admin@example.com',
+   password: 'helloworld',
+ )
+ admin.skip_confirmation!
+ admin.save!
+ users = User.all
 
 ProductCategory.create category: "fruits"
 product_categories = ProductCategory.all
 
-Supplier.create company_name: "Atom Company"
-Supplier.create company_name: "Sublime Company"
-Supplier.create company_name: "Emacs Company"
+Supplier.create company_name: "Atom Company", user: User.find(1)
+Supplier.create company_name: "Sublime Company", user: User.find(1)
+Supplier.create company_name: "Emacs Company", user: User.find(1)
 suppliers = Supplier.all
 
-Customer.create company_name: "Chrome Store"
-Customer.create company_name: "Firefox Store"
-Customer.create company_name: "Opera Store"
+Customer.create company_name: "Chrome Store", user: User.find(1)
+Customer.create company_name: "Firefox Store", user: User.find(1)
+Customer.create company_name: "Opera Store", user: User.find(1)
 customers = Customer.all
 
-ProductDescription.create name: "Banana", sku: "0001", def_retail_price_in_cents: 6999, def_wholesale_price_in_cents: 5999, def_purchase_price_in_cents: 4999,initial_stock_level: 50, initial_units_sold: 20, initial_units_purchased: 30, product_category: product_categories.find_by( category: "fruits" )
-ProductDescription.create name: "Apple", sku: "0002", def_retail_price_in_cents: 3999, def_wholesale_price_in_cents: 3499, def_purchase_price_in_cents: 2999,initial_stock_level: 40, initial_units_sold: 20, initial_units_purchased: 30, product_category: product_categories.find_by( category: "fruits" )
+ProductDescription.create name: "Banana", sku: "0001", def_retail_price_in_cents: 6999, def_wholesale_price_in_cents: 5999, def_purchase_price_in_cents: 4999,initial_stock_level: 50, initial_units_sold: 20, initial_units_purchased: 30, product_category: product_categories.find_by( category: "fruits" ), user: User.find(1)
+ProductDescription.create name: "Apple", sku: "0002", def_retail_price_in_cents: 3999, def_wholesale_price_in_cents: 3499, def_purchase_price_in_cents: 2999,initial_stock_level: 40, initial_units_sold: 20, initial_units_purchased: 30, product_category: product_categories.find_by( category: "fruits" ), user: User.find(1)
 product_descriptions = ProductDescription.all
 
-PurchaseOrder.create po_number: "PO001", created_at: DateTime.now - 5.days, supplier: suppliers.find_by(company_name: "Atom Company")
-PurchaseOrder.create po_number: "PO002", created_at: DateTime.now - 3.days, supplier: suppliers.find_by(company_name: "Sublime Company")
-PurchaseOrder.create po_number: "PO003", created_at: DateTime.now - 1.days, supplier: suppliers.find_by(company_name: "Emacs Company")
+PurchaseOrder.create po_number: "PO001", created_at: DateTime.now - 5.days, supplier: suppliers.find_by(company_name: "Atom Company"), user: User.find(1)
+PurchaseOrder.create po_number: "PO002", created_at: DateTime.now - 3.days, supplier: suppliers.find_by(company_name: "Sublime Company"), user: User.find(1)
+PurchaseOrder.create po_number: "PO003", created_at: DateTime.now - 1.days, supplier: suppliers.find_by(company_name: "Emacs Company"), user: User.find(1)
 purchase_orders = PurchaseOrder.all
 
-SalesOrder.create so_number: "SO001", created_at: DateTime.now - 4.days, customer: customers.find_by(company_name: "Chrome Store")
-SalesOrder.create so_number: "SO002", created_at: DateTime.now - 2.days, customer: customers.find_by(company_name: "Firefox Store")
-SalesOrder.create so_number: "SO003", created_at: DateTime.now, customer: customers.find_by(company_name: "Opera Store")
+SalesOrder.create so_number: "SO001", created_at: DateTime.now - 4.days, customer: customers.find_by(company_name: "Chrome Store"), user: User.find(1)
+SalesOrder.create so_number: "SO002", created_at: DateTime.now - 2.days, customer: customers.find_by(company_name: "Firefox Store"), user: User.find(1)
+SalesOrder.create so_number: "SO003", created_at: DateTime.now, customer: customers.find_by(company_name: "Opera Store"), user: User.find(1)
 sales_orders = SalesOrder.all
 
 # purchased bananas and apples from atom company (PO001)

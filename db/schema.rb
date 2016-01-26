@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160119050802) do
+ActiveRecord::Schema.define(version: 20160126065059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,7 +30,10 @@ ActiveRecord::Schema.define(version: 20160119050802) do
     t.string   "url"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "user_id"
   end
+
+  add_index "customers", ["user_id"], name: "index_customers_on_user_id", using: :btree
 
   create_table "product_categories", force: :cascade do |t|
     t.string   "category"
@@ -51,9 +54,11 @@ ActiveRecord::Schema.define(version: 20160119050802) do
     t.integer  "product_category_id"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.integer  "user_id"
   end
 
   add_index "product_descriptions", ["product_category_id"], name: "index_product_descriptions_on_product_category_id", using: :btree
+  add_index "product_descriptions", ["user_id"], name: "index_product_descriptions_on_user_id", using: :btree
 
   create_table "purchase_line_items", force: :cascade do |t|
     t.integer  "price_in_cents"
@@ -72,9 +77,11 @@ ActiveRecord::Schema.define(version: 20160119050802) do
     t.integer  "supplier_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "user_id"
   end
 
   add_index "purchase_orders", ["supplier_id"], name: "index_purchase_orders_on_supplier_id", using: :btree
+  add_index "purchase_orders", ["user_id"], name: "index_purchase_orders_on_user_id", using: :btree
 
   create_table "sales_line_items", force: :cascade do |t|
     t.integer  "price_in_cents"
@@ -93,9 +100,11 @@ ActiveRecord::Schema.define(version: 20160119050802) do
     t.integer  "customer_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "user_id"
   end
 
   add_index "sales_orders", ["customer_id"], name: "index_sales_orders_on_customer_id", using: :btree
+  add_index "sales_orders", ["user_id"], name: "index_sales_orders_on_user_id", using: :btree
 
   create_table "suppliers", force: :cascade do |t|
     t.text     "address"
@@ -111,7 +120,32 @@ ActiveRecord::Schema.define(version: 20160119050802) do
     t.string   "url"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "user_id"
   end
+
+  add_index "suppliers", ["user_id"], name: "index_suppliers_on_user_id", using: :btree
+
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "product_descriptions", "product_categories"
   add_foreign_key "purchase_line_items", "product_descriptions"

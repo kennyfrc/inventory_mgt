@@ -1,4 +1,5 @@
 class PurchaseOrdersController < ApplicationController
+  before_action :authenticate_user!
   def index
     @purchase_orders = PurchaseOrder.all
   end

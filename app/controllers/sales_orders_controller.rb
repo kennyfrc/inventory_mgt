@@ -1,4 +1,5 @@
 class SalesOrdersController < ApplicationController
+  before_action :authenticate_user!
   def index
     @sales_orders = SalesOrder.all
   end

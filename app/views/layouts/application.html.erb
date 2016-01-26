@@ -19,7 +19,7 @@
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dashboard <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="/">Overall Analysis</a></li>
+          <li><a href="/dashboard">Overall Analysis</a></li>
           <li><a href="/dashboard/investigate_inventory">By-SKU Analysis</a></li>
         </ul>
       </li>
@@ -28,7 +28,19 @@
       <li> <%= link_to "Sales Orders", sales_orders_path %> </li>
       <li> <%= link_to "Purchase Orders", purchase_orders_path %> </li>
       <div class = "pull-right user-info">
-      Sign In | Sign Out (placeholder)
+        <% if current_user %> 
+            Hello <%= current_user.email %>!
+              <%= link_to edit_user_registration_path, class: 'btn btn-primary btn-sm' do %>
+                <span class="glyphicon glyphicon-user"></span>
+              <% end %>
+
+              <%= link_to destroy_user_session_path, method: :delete, class: 'btn btn-primary btn-sm' do %>
+                <span class="glyphicon glyphicon-log-out"></span>
+              <% end %>
+        <% else %>
+              <%= link_to "Sign In", new_user_session_path %> or
+              <%= link_to "Sign Up", new_user_registration_path %>
+        <% end %> 
     </div>
     </ul>
     <%= yield %>

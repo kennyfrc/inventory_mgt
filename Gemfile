@@ -3,6 +3,10 @@ source 'https://rubygems.org'
 # domain modeling
 gem "rails-erd"
 
+# user authentication
+
+gem 'devise'
+
 # css framework
 gem 'bootstrap-sass'
 

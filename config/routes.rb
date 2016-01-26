@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
-  root to: 'dashboard#show'
+
+  devise_for :users
+  resources :users, only: [:update, :show, :index]
+  root to: 'welcome#about'
 
   get 'dashboard/investigate_inventory' => 'dashboard#investigate_inventory'
+  get 'dashboard' => 'dashboard#show'
 
   resources :relationships
   resources :purchase_line_items

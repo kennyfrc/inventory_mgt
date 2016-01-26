@@ -1,4 +1,5 @@
 class DashboardController < ApplicationController
+  before_action :authenticate_user!
   def show
     @product_descriptions = ProductDescription.all
     @sales_line_items = SalesLineItem.all

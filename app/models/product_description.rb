@@ -1,5 +1,6 @@
 class ProductDescription < ActiveRecord::Base
   belongs_to :product_category
+  belongs_to :user
   has_many :sales_line_items
   has_many :purchase_line_items
 
