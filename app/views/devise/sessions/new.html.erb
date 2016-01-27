@@ -1,51 +1,63 @@
-<h2>Log in</h2>
-<p>Note: use "admin@example.com" as username & "helloworld" as password </p>
+<div class="row well">
 
-<div class="col-xs-4">
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, class: "form-control" %>
-  </div>
+  <h2>Log in</h2>
+  <p>Note: use "admin@example.com" as username & "helloworld" as password </p>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off", class: "form-control"  %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
+  <div class="col-xs-4">
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, class: "form-control" %>
     </div>
-  <% end -%>
 
-  <div class="actions">
-    <%= f.submit "Log in", class: "btn btn-default btn-sm"  %>
+    <div class="field">
+      <%= f.label :password %><br />
+      <%= f.password_field :password, autocomplete: "off", class: "form-control"  %>
+    </div>
+
+    <% if devise_mapping.rememberable? -%>
+      <div class="field">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+    <% end -%>
+
+    <div class="actions">
+      <%= f.submit "Log in", class: "btn btn-default btn-sm"  %>
+    </div>
+  <% end %>
+
+  <%= render "devise/shared/links" %>
   </div>
-<% end %>
+  <div class="col-xs-2">
+  </div>
+  <div class="col-xs-6">
+  <h4> Current Feature List (Jan 27, 2016) </h4>
+  <ul>
+    <li>Graph Profit, Sales, and Costs (Overall)</li>
+    <li>Graph Stock Level (Overall) </li>
+    <li>Graph Days on Hand (Overall) </li>
+    <li>By-SKU Search and view of profit, sales, costs, DoH, and stock levels</li>
+    <li>Generate a Sales and Purchase Order PDF </li>
+    <li>Email said PDF to either your supplier or customer</li>
+  </ul>
+  <h4> To Do List </h4>
+  <ul>
+    <li>!!! Fix painful Google Charts issue in Heroku.</li>
+    <li>Import / Export to and from CSV</li>
+    <li>Multitenancy </li>
+    <li>Billing via Braintree (Stripe not available in my country)</li>
+    <li>Data binding in Purchase Orders and Sales Orders</li>
+  </ul>
 
-<%= render "devise/shared/links" %>
+  </div>
+
 </div>
-<div class="col-xs-2">
-</div>
-<div class="col-xs-6">
-<h4> Current Feature List (Jan 27, 2016) </h4>
-<ul>
-  <li>Graph Profit, Sales, and Costs (Overall)</li>
-  <li>Graph Stock Level (Overall) </li>
-  <li>Graph Days on Hand (Overall) </li>
-  <li>By-SKU Search and view of profit, sales, costs, DoH, and stock levels</li>
-  <li>Generate a Sales and Purchase Order PDF </li>
-  <li>Email said PDF to either your supplier or customer</li>
-</ul>
-<h4> To Do List </h4>
-<ul>
-  <li>!!! Fix painful Google Charts issue in Heroku.</li>
-  <li>Import / Export to and from CSV</li>
-  <li>Multitenancy </li>
-  <li>Billing via Braintree (Stripe not available in my country)</li>
-  <li>Data binding in Purchase Orders and Sales Orders</li>
-</ul>
+
+<div class="row">
+  <div class="col-xs-12">
+    <h4>Context:</h4>
+      <p>I've tried a lot of inventory management applications but all of them don't accomplish why supply chain managers want an inventory management software to begin with, which is to solve either a) a low stock problem (leading to lost revenue) or b) a high stock problem (leading to the sunk cost problem). Such need requires a metric called "Days on Hand" which equips the user with the knowledge on when s/he needs to restock and how much he needs to push demand. Hence, this project.</p>
+  </div>
 
 </div>
