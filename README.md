@@ -19,6 +19,7 @@ I've tried a lot of inventory management applications but all of them don't acco
  * Multitenancy 
  * Billing via Braintree (Stripe not available in my country)
  * Data binding in Purchase Orders and Sales Orders
+ * Update / Destroy functionality for Products, Sales Orders, Purchase Orders, Suppliers, and Customers
 
 
  ##### Domain Model:
