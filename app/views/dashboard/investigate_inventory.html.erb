@@ -54,19 +54,7 @@
   </div>
   <div class="col-md-7">
     <h3 align="center">Profit Over Time for <%="#{@product_descriptions.pluck(:name)[0]}s (In USD)"%></h3>
-          <%= line_chart [
-            {name: "Profit", data: @cumu_profit_data },
-            {name: "Revenue", data: @cumu_rev_data},
-            {name: "Cost", data: @cumu_cost_data }
-          ], 
-          {"library":
-                {
-                  title: "Placeholder",
-                "hAxis":{"title":"Date","gridlines":
-                    {"count":3,"color":"#CCC"},"format":"dd/MM/yy"},
-                "vAxis":{"title":"Sales in USD","gridlines":
-                    {"color":"#CCC"}}
-                }, "discrete": true} %>
+          <%= line_chart @xy_data_for_profit, @formatting_data_for_profit %>
     <div class="row">
       <div align="right">
         <%= (link_to "Replenish #{@product_descriptions.pluck(:name)[0]}s Now", new_purchase_order_path, class: "btn btn-success btn-sm" ) if (@days_on_hand < 3) %>

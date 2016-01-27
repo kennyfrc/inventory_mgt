@@ -10,6 +10,10 @@ class DashboardController < ApplicationController
     profit_graph
     stock_level
     days_on_hand
+    xy_data_for_profit
+    formatting_data_for_profit
+    xy_data_for_stocks
+    formatting_data_for_stocks
 
     if @days_on_hand < 7
       flash[:alert] = "You have less than 7 days worth of stock left (on average). Check 'Study By-SKU Inventory' for more."
@@ -28,6 +32,8 @@ class DashboardController < ApplicationController
     profit_graph
     stock_level
     days_on_hand
+    xy_data_for_profit
+    formatting_data_for_profit
 
     if @days_on_hand < 7 && @days_on_hand > 2
       flash[:alert] = "Replenish your #{@product_descriptions.pluck(:name)[0]} stock ASAP. You have on average less than 7 days worth of stock left. Check 'Study By-SKU Inventory' for more [In Stock Level Over Time Graph]."
@@ -39,6 +45,46 @@ class DashboardController < ApplicationController
   end
 
   private
+
+  def xy_data_for_profit
+    @xy_data_for_profit = [
+      {name: "Profit", data: @cumu_profit_data },
+      {name: "Revenue", data: @cumu_rev_data},
+      {name: "Cost", data: @cumu_cost_data }
+    ]
+  end
+
+  def formatting_data_for_profit
+    @formatting_data_for_profit = {"library":
+      {
+        title: "Placeholder",
+      "hAxis":{"title":"Date","gridlines":
+          {"count":3,"color":"#CCC"},"format":"dd/MM/yy"},
+      "vAxis":{"title":"Sales in USD","gridlines":
+          {"color":"#CCC"}}
+      }, "discrete": true
+    }
+  end
+
+  def xy_data_for_stocks
+    @xy_data_for_stocks = 
+    [
+      {name: "Stock Level", data: @stock_level_data } 
+    ]
+  end
+  
+  def formatting_data_for_stocks
+    @formatting_data_for_stocks = 
+    {"library":
+      {
+        title: "Placeholder",
+      "hAxis":{"title":"Date","gridlines":
+          {"count":3,"color":"#CCC"},"format":"YYYY-MM-DD"},
+      "vAxis":{"title":"Number of Units in Stock","gridlines":
+          {"color":"#CCC"}}
+      }, "discrete": true
+    }
+  end
 
   def base
     # this is the base for the cumulative data
