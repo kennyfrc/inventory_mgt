@@ -19,3 +19,7 @@ I've tried a lot of inventory management applications but all of them don't acco
  * Multitenancy 
  * Billing via Braintree (Stripe not available in my country)
  * Data binding in Purchase Orders and Sales Orders
+
+ ##### Domain Model:
+
+ ![](https://github.com/kennyfrc/inventory_mgt/blob/master/lib/assets/img/domain_model.jpg)
