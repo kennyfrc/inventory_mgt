@@ -6,6 +6,8 @@ gem "rails-erd"
 # user authentication
 gem 'devise'
 
+gem "googlecharts"
+
 # install prawn pdf
 gem 'prawn'
 gem 'prawn-table'
