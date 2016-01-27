@@ -55,15 +55,6 @@ class DashboardController < ApplicationController
   end
 
   def formatting_data_for_profit
-    @formatting_data_for_profit = {"library":
-      {
-        title: "Placeholder",
-      "hAxis":{"title":"Date","gridlines":
-          {"count":3,"color":"#CCC"},"format":"dd/MM/yy"},
-      "vAxis":{"title":"Sales in USD","gridlines":
-          {"color":"#CCC"}}
-      }, "discrete": true
-    }
   end
 
   def xy_data_for_stocks
@@ -74,16 +65,6 @@ class DashboardController < ApplicationController
   end
   
   def formatting_data_for_stocks
-    @formatting_data_for_stocks = 
-    {"library":
-      {
-        title: "Placeholder",
-      "hAxis":{"title":"Date","gridlines":
-          {"count":3,"color":"#CCC"},"format":"YYYY-MM-DD"},
-      "vAxis":{"title":"Number of Units in Stock","gridlines":
-          {"color":"#CCC"}}
-      }, "discrete": true
-    }
   end
 
   def base
